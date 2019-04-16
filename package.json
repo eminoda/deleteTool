@@ -1,0 +1,15 @@
+{
+	"name": "@eminoda/app",
+	"version": "1.0.0",
+	"description": "delete tool",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {},
+	"devDependencies": {
+		"electron": "^4.1.4"
+	}
+}
