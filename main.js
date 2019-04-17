@@ -24,49 +24,72 @@ function createWindow() {
 	});
 }
 
-ipcMain.on('sendToMain', (event, arg) => {
+ipcMain.on('sendToMain', async (event, arg) => {
 	if (arg.event == 'openFileDialog') {
 		let filePath = dialog.showOpenDialog({ properties: ['openFile', 'openDirectory'] });
 		if (filePath) {
-			event.sender.send('sendToRender', {
-				event: 'successChooseFile',
+			sendToRender(event, {
+				event: 'SUCCESS-CHOOSE',
+				success: true,
 				data: {
 					path: path.resolve(filePath[0])
 				}
 			});
 		} else {
-			event.sender.send('sendToRender', {
-				event: 'failChooseFile',
-				data: '文件未选择'
+			sendToRender(event, {
+				event: 'FAIL-CHOOSE',
+				success: false,
+				message: '文件未选择'
 			});
 		}
 	} else if (arg.event == 'deleteFile') {
-		console.log(arg);
 		let deletePath = arg.data.path;
-		deleteTool(deletePath);
+		try {
+			let deleteResutl = await deleteTool(deletePath);
+			sendToRender(event, {
+				event: 'SUCCESS-DELETE',
+				success: true
+			});
+		} catch (err) {
+			sendToRender(event, {
+				event: 'FAIL-CHOOSE',
+				success: false,
+				message: err.message
+			});
+		}
 	}
 });
 
-function deleteTool(dir) {
+function sendToRender(event, ...sendData) {
+	event.sender.send('sendToRender', ...sendData);
+}
+
+async function deleteTool(dir) {
 	if (dirIsExist(dir)) {
 		const files = readDirTree(dir);
-		console.log(files);
-		for (let filename of files) {
-			let file = path.join(dir, filename);
-			const stat = fs.statSync(file);
-			try {
+		try {
+			for (let filename of files) {
+				let file = path.join(dir, filename);
+				// windows 快捷方式 目标目录丢失
+				const stat = fs.lstatSync(file);
 				if (stat.isDirectory()) {
 					deleteTool(file);
 				} else {
 					fs.unlinkSync(file);
 				}
-			} catch (err) {
-				throw err;
 			}
+			fs.rmdirSync(dir);
+		} catch (err) {
+			if (err.message.indexOf('EBUSY') !== -1) {
+				throw new Error('当前目录/文件被占用中...');
+			}
+			if (err.message.indexOf('ENOENT') !== -1) {
+				throw new Error('目标文件不存在...');
+			}
+			throw err;
 		}
-		fs.rmdirSync(dir);
 	} else {
-		console.log('dir worry');
+		throw new Error('请选择目录');
 	}
 }
 
@@ -75,8 +98,6 @@ function readDirTree(directory) {
 	try {
 		files = fs.readdirSync(directory);
 	} catch (err) {
-		console.log(directory);
-		console.log(err);
 		files = [];
 	}
 	return files;
@@ -86,7 +107,6 @@ function dirIsExist(directory) {
 	try {
 		return fs.existsSync(directory);
 	} catch (err) {
-		console.err(err);
 		return false;
 	}
 }
