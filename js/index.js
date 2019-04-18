@@ -12,6 +12,7 @@ $('#openFile').click(() => {
 
 // 删除文件
 $('#deleteFile').click(() => {
+	$('#deletePath').text('');
 	ipcRenderer.send('sendToMain', {
 		event: 'deleteFile',
 		data: {
@@ -29,6 +30,6 @@ ipcRenderer.on('sendToRender', (event, arg) => {
 			document.getElementById('deletePath').innerText = '删除成功';
 		}
 	} else {
-		$('#errorMessage').text(arg.message);
+		$('#errorMessage').text(`错误信息：` + arg.message);
 	}
 });

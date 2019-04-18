@@ -7,10 +7,11 @@ app.on('ready', createWindow);
 function createWindow() {
 	// 创建浏览器窗口
 	let win = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 450,
+		height: 380,
+		resizable: false,
 		webPreferences: {
-			devTools: true,
+			devTools: false,
 			nodeIntegration: true
 		}
 	});
