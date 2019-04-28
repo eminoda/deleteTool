@@ -1,19 +1,20 @@
 {
-  "name": "@eminoda/app",
-  "version": "1.0.0",
-  "description": "delete tool",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.4.0",
-    "popper.js": "^1.15.0"
-  },
-  "devDependencies": {
-    "electron": "^4.1.4"
-  }
+	"name": "deletetool",
+	"version": "1.0.0",
+	"description": "delete tool",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron .",
+		"build": "node ./packageHelper.js"
+	},
+	"author": "eminoda",
+	"license": "ISC",
+	"dependencies": {
+		"jquery": "^3.4.0"
+	},
+	"devDependencies": {
+		"electron": "^4.1.4",
+		"electron-packager": "^13.1.1",
+		"electron-winstaller": "^3.0.4"
+	}
 }
