@@ -5,7 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"build": "node ./packageHelper.js"
+		"build": "node ../build/pkger.js",
+		"install": "node ../build/installer.js"
 	},
 	"author": "eminoda",
 	"license": "ISC",
@@ -15,6 +16,7 @@
 	"devDependencies": {
 		"electron": "^4.1.4",
 		"electron-packager": "^13.1.1",
+		"electron-squirrel-startup": "^1.0.0",
 		"electron-winstaller": "^3.0.4"
 	}
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>deteleTool</title>
+		<link rel="stylesheet" href="./css/index.css" />
+	</head>
+	<body>
+		<div class="wrap">
+			<h1 class="titel">deteleTool</h1>
+			<div class="bg" style="border-left: 5px solid #eee;">
+				这是个简单的删除工具，解决 window 删除不了过长路径问题
+			</div>
+			<div class="line">
+				<button class="open" id="openFile">选择文件</button>
+				<button class="delete" id="deleteFile">确认删除</button>
+				<span id="errorMessage"></span>
+			</div>
+
+			<div class="panel">
+				<div class="panel-heading">
+					已选择路径
+				</div>
+				<div class="panel-body">
+					<span id="deletePath"></span>
+				</div>
+			</div>
+		</div>
+
+		<script src="./js/index.js"></script>
+	</body>
+</html>
