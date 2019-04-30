@@ -121,6 +121,8 @@ function adapterError(err, path) {
 		return new Error(`文件/目录不存在 [${path}]`);
 	} else if (err.code == 'EBUSY') {
 		return new Error(`文件/目录被占用 [${path}]`);
+	} else if (err.code == 'EPERM') {
+		return new Error(`权限限制，请联系管理员删除 [${path}]`);
 	}
 	return err;
 }

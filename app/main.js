@@ -51,12 +51,14 @@ ipcMain.on('sendToMain', async (event, arg) => {
 		try {
 			let start = new Date().getTime();
 			let deleteResutl = await deleteTool(deletePath, event);
+			let end = new Date().getTime() - start;
 			sendToRender(event, {
 				event: 'SUCCESS_DELETE',
-				success: true
+				success: true,
+				data: `删除成功，耗时 ${Math.round((end / 1000) * 100) / 100} s`
 			});
-			console.log(new Date().getTime() - start);
 		} catch (err) {
+			console.log(err);
 			sendToRender(event, {
 				event: 'FAIL_CHOOSE',
 				success: false,
