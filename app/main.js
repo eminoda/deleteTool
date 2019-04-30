@@ -11,7 +11,7 @@ function createWindow() {
 	// 创建浏览器窗口
 	let win = new BrowserWindow({
 		width: 500,
-		height: 450,
+		height: 420,
 		resizable: false,
 		webPreferences: {
 			devTools: false,

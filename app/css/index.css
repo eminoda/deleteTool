@@ -65,7 +65,7 @@ button {
 }
 .panel-body {
 	padding: 15px 15px;
-	height: 80px;
+	height: 40px;
 	overflow-y: scroll;
 	text-align: left;
 }
