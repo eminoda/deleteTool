@@ -1,15 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-deleteTool(path.join(__dirname, './services - 副本'))
-	.then(data => {
-		console.log('delete ok');
-	})
-	.catch(err => {
-		console.log(err);
-	});
+module.exports = deleteTool;
 
-function deleteTool(filepath, dirtoryCache = []) {
+function deleteTool(filepath) {
 	return new Promise((resolve, reject) => {
 		console.log('check filepath: ', filepath);
 		getFileStat(filepath)

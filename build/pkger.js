@@ -7,7 +7,7 @@ const options = {
 	appVersion: '1.0.0',
 	overwrite: true,
 	ignore: 'build',
-	out: path.join(rootDir, './build/out'),
+	out: path.join(rootDir, './dist/out'),
 	win32metadata: {
 		CompanyName: 'eminoda'
 	}
