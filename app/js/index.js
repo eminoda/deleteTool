@@ -12,7 +12,6 @@ $('#openFile').click(() => {
 
 // 删除文件
 $('#deleteFile').click(() => {
-	$('#deletePath').text('');
 	ipcRenderer.send('sendToMain', {
 		event: 'deleteFile',
 		data: {
@@ -20,14 +19,16 @@ $('#deleteFile').click(() => {
 		}
 	});
 });
+let $messageAnchor = $('#deleteMessage');
+let $msg = $('<p></p>');
 ipcRenderer.on('sendToRender', (event, arg) => {
 	if (arg.success) {
-		if (arg.event == 'SUCCESS-CHOOSE') {
+		if (arg.event == 'SUCCESS_CHOOSE') {
 			deletePath = arg.data.path;
 			$('#deletePath').text(deletePath);
 		}
-		if (arg.event == 'SUCCESS-DELETE') {
-			document.getElementById('deletePath').innerText = '删除成功';
+		if (arg.event == 'SUCCESS_DELETE') {
+			$msg.text(arg.data).prependTo($messageAnchor);
 		}
 	} else {
 		$('#errorMessage').text(`错误信息：` + arg.message);

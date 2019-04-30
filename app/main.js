@@ -1,6 +1,7 @@
 if (require('electron-squirrel-startup')) return;
 require('./startup');
 const { app, BrowserWindow, globalShortcut, dialog, ipcMain } = require('electron');
+const sendToRender = require('./util');
 const deleteTool = require('./delete');
 const path = require('path');
 
@@ -9,8 +10,8 @@ app.on('ready', createWindow);
 function createWindow() {
 	// 创建浏览器窗口
 	let win = new BrowserWindow({
-		width: 450,
-		height: 380,
+		width: 500,
+		height: 450,
 		resizable: false,
 		webPreferences: {
 			devTools: false,
@@ -22,7 +23,7 @@ function createWindow() {
 	win.loadFile(path.join(__dirname, './index.html'));
 
 	globalShortcut.register('Ctrl+R', () => {
-		console.log('窗口重载');
+		console.log('window create...');
 		win.reload();
 	});
 }
@@ -32,7 +33,7 @@ ipcMain.on('sendToMain', async (event, arg) => {
 		let filePath = dialog.showOpenDialog({ properties: ['openFile', 'openDirectory'] });
 		if (filePath) {
 			sendToRender(event, {
-				event: 'SUCCESS-CHOOSE',
+				event: 'SUCCESS_CHOOSE',
 				success: true,
 				data: {
 					path: path.resolve(filePath[0])
@@ -40,7 +41,7 @@ ipcMain.on('sendToMain', async (event, arg) => {
 			});
 		} else {
 			sendToRender(event, {
-				event: 'FAIL-CHOOSE',
+				event: 'FAIL_CHOOSE',
 				success: false,
 				message: '文件未选择'
 			});
@@ -48,21 +49,19 @@ ipcMain.on('sendToMain', async (event, arg) => {
 	} else if (arg.event == 'deleteFile') {
 		let deletePath = arg.data.path;
 		try {
-			let deleteResutl = await deleteTool(deletePath);
+			let start = new Date().getTime();
+			let deleteResutl = await deleteTool(deletePath, event);
 			sendToRender(event, {
-				event: 'SUCCESS-DELETE',
+				event: 'SUCCESS_DELETE',
 				success: true
 			});
+			console.log(new Date().getTime() - start);
 		} catch (err) {
 			sendToRender(event, {
-				event: 'FAIL-CHOOSE',
+				event: 'FAIL_CHOOSE',
 				success: false,
 				message: err.message
 			});
 		}
 	}
 });
-
-function sendToRender(event, ...sendData) {
-	event.sender.send('sendToRender', ...sendData);
-}
