@@ -3,8 +3,8 @@ const path = require('path');
 const rootDir = process.cwd();
 electronInstaller
 	.createWindowsInstaller({
-		appDirectory: path.join(rootDir, 'dist/out/deletetool-win32-x64'),
-		outputDirectory: path.join(rootDir, 'dist/tmp/deletetool-win32-x64'),
+		appDirectory: path.join(rootDir, '../dist/out/deletetool-win32-x64'),
+		outputDirectory: path.join(rootDir, '../dist/tmp/deletetool-win32-x64'),
 		authors: 'eminoda',
 		exe: 'deletetool.exe',
 		iconUrl: path.join(rootDir, './build/resources/icon/delete.ico'),

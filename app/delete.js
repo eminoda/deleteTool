@@ -11,7 +11,6 @@ function deleteTool(filepath) {
 				if (!stat.isDirectory()) {
 					return deleteFile(filepath);
 				} else {
-					dirtoryCache.push(filepath);
 					return readDirectory(filepath)
 						.then(files => {
 							return deleteFiles(files, filepath);

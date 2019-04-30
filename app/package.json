@@ -5,9 +5,10 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"build": "node ../build/pkger.js",
-		"install": "node ../build/installer.js"
+		"build": "node ./build/pkger.js",
+		"install": "node ./build/installer.js"
 	},
+	"repository": "git@github.com:eminoda/deleteTool.git",
 	"author": "eminoda",
 	"license": "ISC",
 	"dependencies": {

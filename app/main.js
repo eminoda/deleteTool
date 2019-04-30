@@ -1,7 +1,7 @@
 if (require('electron-squirrel-startup')) return;
 require('./startup');
 const { app, BrowserWindow, globalShortcut, dialog, ipcMain } = require('electron');
-const fs = require('fs');
+const deleteTool = require('./delete');
 const path = require('path');
 
 app.on('ready', createWindow);
@@ -19,7 +19,7 @@ function createWindow() {
 	});
 	win.webContents.openDevTools();
 	// 然后加载 app 的 index.html.
-	win.loadFile('index.html');
+	win.loadFile(path.join(__dirname, './index.html'));
 
 	globalShortcut.register('Ctrl+R', () => {
 		console.log('窗口重载');
