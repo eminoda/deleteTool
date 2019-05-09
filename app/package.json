@@ -12,12 +12,12 @@
 	"author": "eminoda",
 	"license": "ISC",
 	"dependencies": {
-		"jquery": "^3.4.0"
+		"jquery": "^3.4.0",
+		"electron-squirrel-startup": "^1.0.0"
 	},
 	"devDependencies": {
 		"electron": "^4.1.4",
 		"electron-packager": "^13.1.1",
-		"electron-squirrel-startup": "^1.0.0",
 		"electron-winstaller": "^3.0.4"
 	}
 }
