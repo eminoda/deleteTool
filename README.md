@@ -4,7 +4,7 @@
 
 # how to use
 
-[下载 deleteTool.zip](https://github.com/eminoda/deleteTool/releases/tag/1.0.0)，打开 exe 运行即可
+[下载 deleteTool.zip](https://github.com/eminoda/deleteTool/releases)，打开 exe 运行即可
 
 # quickstart
 
